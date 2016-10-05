@@ -32,7 +32,7 @@ class Project(object):
         current_commit = self.repo.head.commit
 
         if not previous_commit:
-            previous_commit = FileLock.get_lock_value(
+            previous_commit = FileLock.get(
                 os.path.join(os.path.dirname(self.repo.working_dir), ".commit_lock")
             )
 
