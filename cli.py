@@ -2,7 +2,7 @@ import argparse
 import os
 import yaml
 from termcolor import colored
-from sqlupdater.utils import create_dir, get_lock_commit
+from sqlupdater.utils import create_dir
 from sqlupdater.project import Project
 
 

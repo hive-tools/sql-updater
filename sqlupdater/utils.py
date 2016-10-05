@@ -9,11 +9,13 @@ def create_dir(path):
             raise exception
 
 
-def get_lock_commit(path):
-    if not os.path.exists(path):
-        return None
+class FileLock(object):
+    @staticmethod
+    def get_lock_value(path):
+        if not os.path.exists(path):
+            return None
 
-    with file(path) as f:
-        commit = f.read()
+        with file(path) as f:
+            commit = f.read()
 
-    return commit
+        return commit

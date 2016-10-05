@@ -1,5 +1,5 @@
 import os
-from sqlupdater.utils import create_dir, get_lock_commit
+from sqlupdater.utils import create_dir, FileLock
 from git import Repo, GitCommandError
 from termcolor import colored
 
@@ -32,7 +32,7 @@ class Project(object):
         current_commit = self.repo.head.commit
 
         if not previous_commit:
-            previous_commit = get_lock_commit(
+            previous_commit = FileLock.get_lock_value(
                 os.path.join(os.path.dirname(self.repo.working_dir), ".commit_lock")
             )
 
