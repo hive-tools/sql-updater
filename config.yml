@@ -5,3 +5,7 @@ projects:
       name: imapala
       backend: hive
       repo: git@github.com:ssola/test-data.git
+      filters:
+        only_sql_files:
+          type: file_path
+          regex: ""
