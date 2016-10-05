@@ -1,8 +1,6 @@
 import argparse
 import os
-import yaml
-from termcolor import colored
-from sqlupdater.utils import create_dir
+from sqlupdater.utils import create_dir, get_config
 from sqlupdater.project import Project
 from sqlupdater.executers import DummyExecutor
 
@@ -30,16 +28,6 @@ def get_args():
     return parser.parse_args()
 
 
-def get_config():
-    """
-    Loads configuration from yaml file
-    """
-    config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.yml')
-
-    with file(config_path) as stream:
-        return yaml.load(stream)
-
-
 def setup_project(config, project_name):
     """
     Updates or setup a new project and return the Repo.
@@ -51,8 +39,8 @@ def setup_project(config, project_name):
 
     project_config = config['projects'][project_name]
     project_dir = os.path.join(config['metadata_path'], project_name)
-    project = Project(project_dir)
-    project.init_project(project_config)
+    project = Project(project_dir, project_config)
+    project.init_project()
 
     return project
 

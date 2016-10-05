@@ -5,13 +5,14 @@ from termcolor import colored
 
 
 class Project(object):
-    def __init__(self, project_dir):
+    def __init__(self, project_dir, config):
         self._project_dir = project_dir
+        self._config = config
 
-    def init_project(self, config):
+    def init_project(self):
         project_dir_git = os.path.join(self._project_dir, 'repo')
 
-        if not config['repo']:
+        if not self._config['repo']:
             raise Exception('Empty repo configuration')
 
         create_dir(project_dir_git)
@@ -19,12 +20,12 @@ class Project(object):
 
         if os.path.exists(git_path):
             repo = Repo(project_dir_git)
-            print colored('Pulling', 'green') + ' repo %s' % config['repo']
+            print colored('Pulling', 'green') + ' repo %s' % self._config['repo']
             repo.remotes.origin.pull()
         else:
             try:
-                print 'cloning... %s' % config['repo']
-                Repo.clone_from(config['repo'], project_dir_git)
+                print 'cloning... %s' % self._config['repo']
+                Repo.clone_from(self._config['repo'], project_dir_git)
             except GitCommandError as e:
                 print 'Repo cannot be found'
 
