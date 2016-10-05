@@ -4,6 +4,20 @@ from git import Repo, GitCommandError
 from termcolor import colored
 
 
+class FileChanged(object):
+    def __init__(self, change_type, file_path):
+        self._change_type = change_type
+        self._file_path = file_path
+
+    @property
+    def change_type(self):
+        return self._change_type
+
+    @property
+    def file_path(self):
+        return self._file_path
+
+
 class Project(object):
     def __init__(self, project_dir, config):
         self._project_dir = project_dir
@@ -43,10 +57,12 @@ class Project(object):
             diff_index = index.diff(previous_commit)
 
             for diff in diff_index:
-                modified_files += [{
-                                       "change_type": diff.change_type,
-                                       "path": os.path.join(self.repo.working_dir, diff.a_path)
-                                   }]
+                modified_files.append(
+                    FileChanged(
+                        diff.change_type,
+                        os.path.join(self.repo.working_dir, diff.a_path)
+                    )
+                )
 
         return modified_files
 
