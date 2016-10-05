@@ -4,6 +4,7 @@ import yaml
 from termcolor import colored
 from sqlupdater.utils import create_dir
 from sqlupdater.project import Project
+from sqlupdater.executers import DummyExecutor
 
 
 def build_arg_parser():
@@ -55,6 +56,7 @@ def setup_project(config, project_name):
 
     return project
 
+
 def main():
     args = get_args()
 
@@ -64,17 +66,7 @@ def main():
     project = setup_project(config, project_name)
 
     if args.show:
-        modified_files = project.diff()
-        if modified_files:
-            print '%d files has been modified' % len(modified_files)
-            for _file in modified_files:
-                if _file["change_type"] in ['D', 'M']:
-                    word = 'New' if _file["change_type"] == 'D' else 'Modified'
-                    print "- %s " % word + colored(_file["path"], "green")
-                elif _file["change_type"] in ['A']:
-                    print "- Deleted " + colored(_file["path"], "red")
-        else:
-            print 'Nothing has changed'
-
+        executor = DummyExecutor()
+        executor.execute(project)
 
 main()
