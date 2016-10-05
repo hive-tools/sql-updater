@@ -1,0 +1,7 @@
+---
+metadata_path: /Users/ssola/Workspace/metadata/sql/
+projects:
+  impala_project:
+      name: imapala
+      backend: hive
+      repo: git@github.com:ssola/test-data.git
