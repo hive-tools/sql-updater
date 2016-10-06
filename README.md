@@ -38,3 +38,10 @@ We use classes called `Executors`. Basically depending which backend are you goi
 Currently we only have the HiveExecutor with the HiveClient. But if we need to do the same for MySQL we have to code our own MySQLExecutor and we are done.
 
 Then we have something called `Filters` that help us to clean up the final list of tasks to execute. At this time we only implemented the `FileExtensionFilter`, but as you can imagine it's quite easy to create new ones following the `Filter` contract.
+
+### TODO
+
+- [ ] Write tests
+- [ ] Clean up the code a little bit
+- [ ] Create `-h --help` parameter
+- [ ] Init project with a specific commit
