@@ -37,7 +37,7 @@ With this example we are defining a project called `hive_project` that it's usin
 
 We support to create databases and tables in Hive. With this tool everytime you execute a query we are going to check if the database exists before to execute your query (otherwise it will fail).
 
-If table already exists we are going to drop it and create it again. After all the process we repair your tables, so you don't have to care about adding the `MSK REPAIR` command in every single file.
+If table already exists we are going to drop it and create it again. After all the process we repair your tables, so you don't have to care about adding the `MSCK REPAIR` command in every single file.
 
 ### Philosophy
 
