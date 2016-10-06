@@ -28,3 +28,13 @@ projects:
 ```
 
 With this example we are defining a project called `hive_project` that it's using `hive` backend to update all the queries stored in the repo `git@github.com:ssola/test-data.git`. Because we are only intested in sql files we are defining the filter. This filters cleans up the list of updated files deleting any file which extension isn't `.sql`
+
+### Philosophy
+
+At the moment we only support `hive` as backend service to update our queries. But it's quite straightforward to extend it to numerous backends. 
+
+We use classes called `Executors`. Basically depending which backend are you going to run your project we can select a differet executor to execute the tasks. 
+
+Currently we only have the HiveExecutor with the HiveClient. But if we need to do the same for MySQL we have to code our own MySQLExecutor and we are done.
+
+Then we have something called `Filters` that help us to clean up the final list of tasks to execute. At this time we only implemented the `FileExtensionFilter`, but as you can imagine it's quite easy to create new ones following the `Filter` contract.
