@@ -46,7 +46,9 @@ class FileLock(object):
 
     @staticmethod
     def save(path, value):
-        raise Exception("Method not implemented")
+        with open(path, 'r+') as _file:
+            _file.write(value)
+
 
     @staticmethod
     def delete(path, value):

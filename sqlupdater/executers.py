@@ -1,11 +1,17 @@
-import re
+import re, os
 import commands
 from termcolor import colored
 from sqlupdater.parser import HiveDatabaseParser
-from sqlupdater.utils import open_file
+from sqlupdater.utils import open_file, FileLock
 
 
 class Executor(object):
+    def update_lock(self, project):
+        current_commit = str(project.repo.head.commit)
+        working_dir = project.repo.working_dir
+        file_name = os.path.join(os.path.dirname(working_dir), '.commit_lock')
+        FileLock.save(file_name, current_commit)
+
     def execute(self, project):
         raise Exception("Method not implemented")
 
@@ -96,8 +102,6 @@ class HiveExecutor(Executor):
 
         try:
             (database, table) = parser.parse(buffer)
-            print "Check if database %s exists to create table %s" % (
-                database, table)
 
             if not self._database_exists(database):
                 if self._hive_client.create_database(database):
@@ -109,10 +113,14 @@ class HiveExecutor(Executor):
                 print "Database %s already exists" % database
 
             if table in self._hive_client.get_tables(database):
-                self._hive_client.drop_table(database, table)
+                if self._hive_client.drop_table(database, table):
+                    print "Table %s.%s dropped successfully" % (database,
+                                                                 table)
 
-            self._hive_client.create_table_from_file(query_file)
-            self._hive_client.repair_table(database, table)
+            if self._hive_client.create_table_from_file(query_file):
+                print "Table %s.%s created successfully" % (database, table)
+            if self._hive_client.repair_table(database, table):
+                print "Table %s.%s repaired successfully" % (database, table)
         except ValueError, e:
             print colored("Content not valid", "red")
             raise
@@ -134,5 +142,8 @@ class HiveExecutor(Executor):
 
                     try:
                         self._create_tables(buffer, _file.file_path)
+                        self.update_lock(project)
                     except ValueError, e:
                         pass
+        else:
+            print 'Everything up to date'
