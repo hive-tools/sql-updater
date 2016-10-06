@@ -1,5 +1,6 @@
 import os
 from sqlupdater.utils import create_dir, FileLock
+from sqlupdater.filters import FileExtensionFilter
 from git import Repo, GitCommandError
 from termcolor import colored
 
@@ -56,13 +57,16 @@ class Project(object):
             index = self.repo.index
             diff_index = index.diff(previous_commit)
 
-            for diff in diff_index:
-                modified_files.append(
-                    FileChanged(
-                        diff.change_type,
-                        os.path.join(self.repo.working_dir, diff.a_path)
-                    )
-                )
+            modified_files = map(
+                lambda x:  FileChanged(x.change_type, os.path.join(
+                    self.repo.working_dir, x.a_path)),
+                diff_index
+            )
+
+        _filter = FileExtensionFilter()
+        modified_files = filter(
+            lambda x: _filter.do_filter(x, ['.sql']), modified_files
+        )
 
         return modified_files
 

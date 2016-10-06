@@ -28,16 +28,21 @@ def create_dir(path):
         except OSError as exception:
             raise exception
 
+
+def open_file(path):
+    if not os.path.exists(path):
+        return None
+
+    with file(path) as f:
+        content = f.read()
+
+    return content
+
+
 class FileLock(object):
     @staticmethod
     def get(path):
-        if not os.path.exists(path):
-            return None
-
-        with file(path) as f:
-            commit = f.read()
-
-        return commit
+        return open_file(path)
 
     @staticmethod
     def save(path, value):

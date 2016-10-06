@@ -2,7 +2,7 @@ import argparse
 import os
 from sqlupdater.utils import create_dir, get_config
 from sqlupdater.project import Project
-from sqlupdater.executers import DummyExecutor
+from sqlupdater.executers import DummyExecutor, HiveExecutor, HiveClient
 
 
 def build_arg_parser():
@@ -14,6 +14,12 @@ def build_arg_parser():
                         action='store_const',
                         const=True,
                         help='Only show data without executing')
+
+    parser.add_argument('-e', '--execute',
+                        required=False,
+                        action='store_const',
+                        const=True,
+                        help='Execute all the queries stored')
 
     parser.add_argument('-p', '--project',
                         required=True,
@@ -55,6 +61,9 @@ def main():
 
     if args.show:
         executor = DummyExecutor()
-        executor.execute(project)
+    elif args.execute:
+        executor = HiveExecutor(HiveClient())
+
+    executor.execute(project)
 
 main()

@@ -7,5 +7,6 @@ projects:
       repo: git@github.com:ssola/test-data.git
       filters:
         only_sql_files:
-          type: file_path
-          regex: ""
+          filter: file_type
+          types:
+            - ".sql"
