@@ -4,7 +4,7 @@ This project aims to help you to organize your database structure in an easy way
 
 With this tool every new commit in your project repo means a new query should be executed, but with the Git history of commits we are going to execute the minimal and necessary queries.
 
-![creting new table](http://i.imgur.com/Icb90pI.gifv)
+![creting new table](http://i.imgur.com/Icb90pI.gif)
 
 ### Example of usage
 
