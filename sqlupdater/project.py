@@ -18,6 +18,10 @@ class FileChanged(object):
     def file_path(self):
         return self._file_path
 
+    def __eq__(self, other):
+        return True if self._change_type == other.change_type \
+                and self._file_path == other.file_path else False
+
 
 class Project(object):
     def __init__(self, project_dir, config):
