@@ -4,6 +4,8 @@ This project aims to help you to organize your database structure in an easy way
 
 With this tool every new commit in your project repo means a new query should be executed, but with the Git history of commits we are going to execute the minimal and necessary queries.
 
+![creting new table](http://i.imgur.com/Icb90pI.gif)
+
 ### Example of usage
 
 cli.py accepts 3 parameters:
@@ -56,3 +58,4 @@ Then we have something called `Filters` that help us to clean up the final list 
 - [ ] Create `-h --help` parameter
 - [ ] Init project with a specific commit
 - [ ] Implement for real filters from project configuration
+- [ ] Caching layer
