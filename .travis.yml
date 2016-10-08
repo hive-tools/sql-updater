@@ -9,6 +9,6 @@ install:
 # command to run tests
 script:
   - "python setup.py install"
-  - "py.test tests/"
+  - "py.test tests/ --doctest-modules --pep8 coveralls -v --cov coveralls --cov-report term-missing"
 after_success:
   - "coveralls"
