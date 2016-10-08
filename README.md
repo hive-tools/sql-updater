@@ -1,4 +1,4 @@
-# sql-updater
+# sql-updater [![Build Status](https://travis-ci.org/ssola/sql-updater.svg?branch=master)](https://travis-ci.org/ssola/sql-updater)
 
 This project aims to help you to organize your database structure in an easy way. We want to give you the power from Git as a version control to versioning your databases and tables structure.
 
