@@ -7,6 +7,6 @@ install:
   - "pip install -r requirements.txt"
   - "pip install coveralls"
 # command to run tests
-script: "coverage run --source=yourpackagename setup.py test"
+script: "coverage run --source=sqlupdater setup.py test"
 after_success:
   coveralls
