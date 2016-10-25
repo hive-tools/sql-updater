@@ -8,7 +8,8 @@ class Parser(object):
 
 class HiveDatabaseParser(Parser):
     def parse(self, value):
-        regex = "[EXISTS|TABLE|table|exists][\s]+([a-zA-Z_`?]+\.[a-z-A-Z_`?]+)"
+        regex = "[EXISTS|TABLE|table|exists][\s]+([a-zA-Z0-9_`?]+\.[" \
+                "a-z-A-Z0-9_`?]+)"
         items = re.findall(regex, value)
 
         if len(items) == 0:

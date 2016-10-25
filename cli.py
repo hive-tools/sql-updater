@@ -2,7 +2,8 @@ import argparse
 import os
 from sqlupdater.utils import create_dir, get_config
 from sqlupdater.project import Project
-from sqlupdater.executers import DummyExecutor, HiveExecutor, HiveClient
+from sqlupdater.executers import DummyExecutor, HiveExecutor, HiveClient, \
+    CacheData
 
 
 def build_arg_parser():
@@ -62,7 +63,7 @@ def main():
     if args.show:
         executor = DummyExecutor()
     elif args.execute:
-        executor = HiveExecutor(HiveClient())
+        executor = HiveExecutor(HiveClient(CacheData(project)))
 
     executor.execute(project)
 
