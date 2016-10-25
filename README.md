@@ -54,8 +54,8 @@ Then we have something called `Filters` that help us to clean up the final list 
 ### TODO
 
 - [ ] Write tests
-- [ ] Clean up the code a little bit
+- [x] Clean up the code a little bit
 - [ ] Create `-h --help` parameter
 - [ ] Init project with a specific commit
 - [ ] Implement for real filters from project configuration
-- [ ] Caching layer
+- [x] Caching layer
